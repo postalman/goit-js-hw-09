@@ -30,25 +30,24 @@ btnStart.addEventListener('click', onBtnStart);
 
 function onBtnStart() {
   const countdownDate = new Date(datePicker.value).getTime();
-  console.log(now);
+
   const countdownInterval = setInterval(() => {
     const now = Date.now();
+    console.log(now);
     const distance = countdownDate - now;
     if (distance < 0) {
       clearInterval(countdownInterval);
-      textClock({ days: 0, hours: 0, minutes: 0, seconds: 0 });
     } else {
-      const { days, hours, minutes, seconds } = convertMs(distance);
-      textClock({ days, hours, minutes, seconds });
+      textClock(convertMs(distance));
     }
   }, 1000);
 }
 
 function textClock({ days, hours, minutes, seconds }) {
-  daysEl.textСontent = mathCount(days);
-  hoursEl.textСontent = mathCount(hours);
-  minutesEl.textСontent = mathCount(minutes);
-  secondsEl.textСontent = mathCount(seconds);
+  daysEl.textContent = mathCount(days);
+  hoursEl.textContent = mathCount(hours);
+  minutesEl.textContent = mathCount(minutes);
+  secondsEl.textContent = mathCount(seconds);
 }
 
 function convertMs(ms) {
