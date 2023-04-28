@@ -2,7 +2,7 @@ import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
 import Notiflix from 'notiflix';
 
-const deadLine = new Date();
+const deadLine = Date.now();
 let timer = null;
 
 const options = {
@@ -16,14 +16,9 @@ const options = {
     } else {
       btnStart.removeAttribute('disabled');
     }
-    
-    
     console.log(selectedDates[0]);
   },
 };
-
-
-console.log(deadLine);
 
 flatpickr('input#datetime-picker', options);
 
@@ -37,7 +32,12 @@ btnStart.setAttribute('disabled', 'disabled');
 btnStart.addEventListener('click', onBtnStart);
 
 function onBtnStart() {
-  
+  timer = setInterval(() => {
+    textClock(convertMs(deadLine - selectedDates[0]));
+    if(deadLine - selectedDates[0] < 1000) {
+      clearInterval(timer);
+    }
+  }, 1000);
 }
 
 function textClock({ days, hours, minutes, seconds}) {
@@ -64,4 +64,3 @@ function convertMs(ms) {
   return { days, hours, minutes, seconds };
 }
 
-function 
